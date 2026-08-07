@@ -21,29 +21,30 @@ Therefore, the objective of this project is to conduct a frequentist network met
 
 
 ## Research Question
-In adults with primary refractory or early relapsed (≤12 months after completion of first-line therapy) large B-cell lymphoma eligible for second-line treatment, how do axicabtagene ciloleucel, tisagenlecleucel, and lisocabtagene maraleucel compare with one another and with standard-of-care salvage chemoimmunotherapy?
+In adults with primary refractory or early relapsed (≤12 months after completion of first-line therapy) large B-cell lymphoma eligible for second-line treatment, how do axicabtagene ciloleucel, tisagenlecleucel, and lisocabtagene maraleucel compare with one another and with standard-of-care salvage chemoimmunotherapy in terms of efficacy and safety?
 
 ## PICO
 ### Population
-Adult patients (≥18 years) with primary refractory or early relapsed (≤12 months after completion of first-line chemoimmunotherapy) large B-cell lymphoma eligible for second-line treatment.
+Adults (≥18 years) with large B-cell lymphoma, primary refractory to or relapsed within 12 months after completion of first-line anti-CD20 monoclonal antibody plus anthracycline-based chemoimmunotherapy, considered eligible for second-line treatment.
 ### Intervention
 Three CD19-directed CAR T-cell therapies administered as second-line treatment: axicabtagene ciloleucel, lisocabtagene maraleucel, and tisagenlecleucel.
 ### Comparator
-Standard-of-care platinum-based salvage chemoimmunotherapy followed, where appropriate, by high-dose chemotherapy and autologous stem-cell transplantation (ASCT).
+Standard-of-care platinum-based salvage immunochemotherapy followed, where appropriate, by high-dose chemotherapy and autologous stem-cell transplantation (ASCT).
 ### Outcomes
 #### Primary Outcomes
 - Event-free survival (EFS)
 #### Secondary Outcomes
-- Overall survival (OS).
-- Progression-free survival (PFS).
-- Overall response rate (ORR).
-- Complete response rate (CRR).
-- Duration of response (DOR).
-- Treatment-emergent adverse events (TEAEs).
-- Serious adverse events (SAEs).
-- Grade ≥3 adverse events (CTCAE).
+##### Efficacy
+Overall survival (OS)
+Progression-free survival (PFS)
+Overall response rate (ORR)
+Complete response rate (CRR)
+##### Safety
+Treatment-emergent adverse events (TEAEs)
+Serious adverse events (SAEs)
+Grade ≥3 adverse events (according to CTCAE)
 ### Timing (if applicable)
-Outcomes will be extracted at the longest available follow-up reported for each included study. For time-to-event outcomes (EFS, OS, PFS), hazard ratios from the longest available follow-up will be used. For dichotomous outcomes (ORR, CRR, DOR, and safety outcomes), the final reported assessment for each study will be extracted.
+Outcomes will be extracted at the longest available follow-up reported for each included study. For time-to-event outcomes (EFS, OS, PFS), the most appropriate effect estimate reported by each study (e.g., hazard ratio with 95% confidence interval, where available) will be extracted from the longest available follow-up. For dichotomous outcomes (ORR, CRR, and safety outcomes including TEAEs, SAEs, and Grade ≥3 adverse events), data from the final reported assessment at the longest available follow-up will be extracted.
 
 ## Eligibility Criteria
 ### Inclusion Criteria
@@ -52,7 +53,6 @@ Outcomes will be extracted at the longest available follow-up reported for each 
 - Treatment with one of the following CD19-directed CAR-T cell therapies: Axicabtagene ciloleucel, Tisagenlecleucel, Lisocabtagene maraleucel
 - Standard-of-care salvage chemoimmunotherapy, or another eligible intervention within the treatment network.
 - Studies reporting at least one of the predefined outcomes
-- Full-text articles published in peer-reviewed journals
 
 ### Exclusion Criteria
 - Non-randomized studies
@@ -74,21 +74,19 @@ Intervention: "CAR-T", "CAR T", "CAR-T cell", "CAR T-cell", "chimeric antigen re
 Study design: "randomized", "randomised", "randomized controlled trial", "phase III", "phase 3", and "clinical trial".
 Boolean operators (AND/OR) will be used to combine search terms, and database-specific syntax will be applied as appropriate. Reference lists of included studies and relevant reviews will also be screened to identify additional eligible studies.
 ### Study Selection Process
-Records identified through the database searches will be imported into a reference management software, and duplicate records will be removed. Titles and abstracts will be screened against the predefined eligibility criteria, followed by full-text assessment of potentially eligible studies. Study selection will be conducted by a single reviewer due to the scope and resource constraints of this project. This approach differs from the standard practice of independent screening by two reviewers and is acknowledged as a methodological limitation. Reasons for exclusion at full-text review will be documented and summarized in a PRISMA 2020 flow diagram.
+Records identified through the database searches will be imported into a reference management software, and duplicate records will be removed. Titles and abstracts will be screened against the predefined eligibility criteria, followed by full-text assessment of potentially eligible studies. Study selection will be conducted by a single reviewer (ZB) due to the scope and resource constraints of this project. This approach differs from the standard practice of independent screening by two reviewers and is acknowledged as a methodological limitation. Reasons for exclusion at full-text review will be documented and summarized in a PRISMA 2020 flow diagram.
 
 ## Data Extraction
 ### Variables to Extract
 Trial identifiers (NCT number, citation, year, journal); design features (randomization ratio, blinding status, sample size per arm, bridging-therapy policy, crossover provisions); population characteristics relevant to transitivity (age, prior lines of therapy, disease stage); and outcome data by arm.
 ### Outcomes
-N randomized and N responders for CR and ORR, extracted per arm directly from each primary publication's results tables or supplementary appendices. Where a trial has more than one published analysis (TRANSFORM has an interim and a primary/updated readout), the readout used as the base case is stated explicitly. Any value back-calculated from a reported percentage rather than read as a raw count is flagged in the accompanying data dictionary.
+For time-to-event outcomes (EFS, OS, and PFS), hazard ratios (HRs) with corresponding 95% confidence intervals will be extracted from the longest available follow-up reported in each study. For dichotomous outcomes (ORR, CRR, TEAEs, SAEs, and Grade ≥3 adverse events), the number of participants randomized and the number experiencing each outcome will be extracted for each treatment arm directly from the primary publication or its supplementary appendices. Where multiple publications are available for the same trial (e.g., TRANSFORM interim and updated analyses), the publication used for the primary analysis will be specified a priori, with the most mature follow-up serving as the base-case analysis. Any values derived by calculation (e.g., back-calculated from reported percentages) rather than extracted directly will be clearly identified in the accompanying data dictionary.
 ## Risk of Bias Assessment
-Cochrane RoB2, assessed per trial across its five domains — randomization process; deviations from intended interventions; missing outcome data; measurement of the outcome; selection of the reported result — by a single reviewer. Judgments are visualized using the robvis R package (traffic-light and summary plots; McGuinness & Higgins, 2021)
+The risk of bias of the included randomized controlled trials will be assessed using the Cochrane Risk of Bias 2 (RoB 2) tool across its five domains: (1) the randomization process, (2) deviations from intended interventions, (3) missing outcome data, (4) measurement of the outcome, and (5) selection of the reported result. The assessment will be conducted by a single reviewer. Risk-of-bias judgments will be visualized using the robvis R package as traffic-light and weighted summary plots (McGuinness & Higgins, 2021).
 
 ## Statistical Analysis
-### Pairwise Meta-analysis
-Not applicable as a distinct pooling step: each direct comparison (one CAR-T therapy vs. standard of care) is informed by exactly one trial, so there is no between-study pooling to perform at the pairwise level. The pairwise() function in the netmeta R package is used only to reshape arm-level data into the contrast-based long format the network model requires.
 ### Network Meta-analysis
-Frequentist network meta-analysis via the netmeta R package. The binary outcome (CR, with ORR as a secondary outcome) is modeled on the log odds ratio scale. A common-effect (fixed-effect) model is specified as the primary analysis, since between-study heterogeneity cannot be separated from sampling error when each comparison is informed by a single trial. Standard of care is set as the reference treatment. Outputs are a network graph, a league table of all pairwise estimates (direct and indirect), a forest plot versus standard of care, and P-score treatment rankings.
+Frequentist network meta-analyses will be conducted using the netmeta package in R. Time-to-event outcomes (EFS, OS, and PFS) will be synthesized using hazard ratios (HRs) with corresponding 95% confidence intervals, while dichotomous outcomes (ORR, CRR, TEAEs, SAEs, and Grade ≥3 adverse events) will be synthesized using odds ratios (ORs) with corresponding 95% confidence intervals. A common-effect (fixed-effect) model will be used as the primary analytical approach because each treatment comparison is informed by a single randomized controlled trial, preventing reliable estimation of between-study heterogeneity. Standard of care will serve as the reference treatment. Results will be presented as network plots, league tables of all pairwise treatment comparisons, forest plots comparing each intervention with standard of care, and P-score rankings to summarize the relative performance of the interventions.
 ### Assessment of Heterogeneity
 Not formally estimable in this network. Standard between-study heterogeneity statistics (τ², I²) require multiple trials informing the same comparison, and every edge in this network is informed by exactly one trial. This is reported as a structural limitation of the evidence base, not as a heterogeneity estimate of zero.
 ### Assessment of Transitivity
@@ -98,7 +96,7 @@ Not assessable in this network. Consistency — agreement between direct and ind
 ### Treatment Ranking
 P-scores (netmeta's frequentist analogue to SUCRA), interpreted alongside point estimates and confidence intervals rather than in isolation, given the wide uncertainty expected from a three-trial network.
 ### Sensitivity Analyses
-The network model is re-estimated using ORR in place of CR, to check whether treatment ranking and direction of effect hold across the two response definitions. Where TRANSFORM's interim and primary analyses differ, the primary analysis is used as the base case and the interim analysis as a secondary check. As an external plausibility check rather than a pre-specified statistical method, results are also compared qualitatively, in direction and rough magnitude, against published matching-adjusted indirect comparisons of these same three products.
+Sensitivity analyses will be conducted, where applicable, to evaluate the robustness of the findings. Where multiple publications of the same trial are available (e.g., interim and updated analyses of TRANSFORM), the analysis based on the most mature follow-up will serve as the primary analysis, with earlier analyses evaluated in sensitivity analyses to assess the impact of follow-up duration on the estimated treatment effects. Any additional sensitivity analyses will be undertaken only if sufficient data are available and will be reported transparently.
 
 ## Confidence in the Evidence
 Assessed qualitatively using the CINeMA framework (Nikolakopoulou et al., 2020) across five domains — within-study bias, indirectness, imprecision, heterogeneity, and incoherence — each rated High/Moderate/Low/Very low with a brief justification, rather than using the formal CINeMA web application.
