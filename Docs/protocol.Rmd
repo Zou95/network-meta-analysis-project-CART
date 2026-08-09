@@ -4,7 +4,7 @@
 Comparative Efficacy and Safety of Second-Line CD19-Directed CAR T-Cell Therapies for Relapsed or Refractory Large B-Cell Lymphoma: A Frequentist Network Meta-analysis Protocol
 
 ## Project Aim:
-The aim of this project is to conduct a reproducible frequentist network meta-analysis in R comparing second-line CAR-T therapies for relapsed or refractory large B-cell lymphoma. Statistical analyses will be conducted in R using a fully reproducible workflow.
+The aim of this project is to conduct a reproducible frequentist network meta-analysis in R comparing second-line CAR-T therapies for relapsed or refractory large B-cell lymphoma. Statistical analyses will be conducted in R using a fully reproducible workflow, with the analysis environment locked via `renv` and the software versions reported in the final report (R version, `netmeta` version).
 
 ## Background
 Aggressive non-Hodgkin lymphoma (NHL) comprises a heterogeneous group of lymphoid malignancies and represents one of the most common hematological cancers worldwide. Approximately 250,000 new cases are diagnosed each year globally, with large B-cell lymphoma (LBCL) accounting for around one-third of adult NHL cases and occurring predominantly in older adults who frequently depict multiple comorbidities [@bishop2022; @ernst2021]. In the United States, an estimated 80,350 new cases of NHL are expected in 2025, including 45,140 cases in men and 35,210 cases in women [@acs2025].
@@ -31,20 +31,32 @@ Three CD19-directed CAR T-cell therapies administered as second-line treatment: 
 ### Comparator
 Standard-of-care platinum-based salvage immunochemotherapy followed, where appropriate, by high-dose chemotherapy and autologous stem-cell transplantation (ASCT).
 ### Outcomes
-#### Primary Outcomes
-- Event-free survival (EFS)
+Outcomes are ranked below to pre-specify the inferential hierarchy and avoid an unstructured multiplicity of parallel NMAs on a three-trial star network. One primary outcome, two key secondary outcomes, and the remaining exploratory outcomes are defined; only the primary and key secondary outcomes are intended to support confirmatory claims, while exploratory outcomes are reported descriptively.
+
+#### Primary Outcome
+- **Complete response rate (CRR)** — the most transitivity-defensible outcome, because CR is defined consistently across all three trials by Lugano 2014 response criteria (PET-based, independent review adjudicated). This harmonization is what makes CRR suitable as the basis for an indirect comparison, in contrast to EFS (see Secondary Outcomes).
+
 #### Secondary Outcomes
-##### Efficacy
-Overall survival (OS)
-Progression-free survival (PFS)
-Overall response rate (ORR)
-Complete response rate (CRR)
-##### Safety
-Treatment-emergent adverse events (TEAEs)
-Serious adverse events (SAEs)
-Grade ≥3 adverse events (according to CTCAE)
+##### Key secondary (confirmatory)
+- **Overall response rate (ORR)** — defined as CR + partial response, by the same Lugano criteria; pre-specified sensitivity/confirmatory companion to CRR.
+- **Overall survival (OS)** — the most clinically meaningful survival endpoint, reported as a hazard ratio with 95% CI.
+
+##### Exploratory
+- **Event-free survival (EFS)** — reported as a hazard ratio with 95% CI. **Important transitivity caveat:** EFS is the trial-level endpoint these studies were powered on, but its event definition is *not* harmonized across the three trials, which materially threatens transitivity for this outcome specifically (see Assessment of Transitivity). EFS is therefore reported as exploratory and interpreted under that caveat, not as a primary confirmatory result.
+- **Progression-free survival (PFS)** — reported as a hazard ratio with 95% CI where available.
+
+##### Safety (descriptive synthesis)
+- Treatment-emergent adverse events (TEAEs)
+- Serious adverse events (SAEs)
+- Grade ≥3 adverse events (according to CTCAE)
+
+Safety outcomes will be synthesized quantitatively (odds ratios with 95% CIs) and presented in a league table, but **this safety league table is descriptive only and is not intended to support a "safest CAR-T" ranking.** The toxicity profiles of CAR-T products (CRS, ICANS), platinum salvage, and ASCT are categorically different, and an aggregate "odds of any Grade ≥3 AE" averages over mechanistically unrelated events. Rankings derived from safety outcomes will not be emphasised.
+
+##### Patient-Reported Outcomes (Descriptive Synthesis)
+Health-related quality of life and patient-reported outcomes (e.g., FACT-Lym, EQ-5D) reported in trial publications. These will be extracted and summarized descriptively in a summary table. A formal meta-analysis of PROs will be conducted only if at least two trials report comparable instruments and timepoints; otherwise, results will be presented narratively without statistical pooling.
+
 ### Timing (if applicable)
-Outcomes will be extracted at the longest available follow-up reported for each included study. For time-to-event outcomes (EFS, OS, PFS), the most appropriate effect estimate reported by each study (e.g., hazard ratio with 95% confidence interval, where available) will be extracted from the longest available follow-up. For dichotomous outcomes (ORR, CRR, and safety outcomes including TEAEs, SAEs, and Grade ≥3 adverse events), data from the final reported assessment at the longest available follow-up will be extracted.
+Outcomes will be extracted at the longest available follow-up reported for each included study. For time-to-event outcomes (EFS, OS, PFS), the most appropriate effect estimate reported by each study (e.g., hazard ratio with 95% confidence interval, where available) will be extracted from the longest available follow-up. For dichotomous outcomes (CRR, ORR, and safety outcomes including TEAEs, SAEs, and Grade ≥3 adverse events), data from the final reported assessment at the longest available follow-up will be extracted. For each trial, the most mature follow-up publication available at the time of data extraction will serve as the primary data source.
 
 ## Eligibility Criteria
 ### Inclusion Criteria
@@ -66,7 +78,7 @@ Outcomes will be extracted at the longest available follow-up reported for each 
 
 ## Search Strategy
 ### Databases
-PubMed/MEDLINE; ClinicalTrials.gov, for trial-registration cross-checks; Cochrane CENTRAL where accessible
+The literature search will be conducted from database inception to August 2026 using PubMed and ClinicalTrials.gov. If institutional access becomes available, the Cochrane Central Register of Controlled Trials (CENTRAL) will also be searched to identify additional randomized controlled trials. ClinicalTrials.gov will be searched to identify completed and ongoing trials and to cross-check trial registrations against published studies. Reference lists of all included studies and relevant systematic reviews will be manually screened to identify additional eligible studies.
 ### Search Terms
 The search will include terms for:
 Population: "large B-cell lymphoma", "large B cell lymphoma", "diffuse large B-cell lymphoma", "DLBCL", "LBCL".
@@ -74,32 +86,76 @@ Intervention: "CAR-T", "CAR T", "CAR-T cell", "CAR T-cell", "chimeric antigen re
 Study design: "randomized", "randomised", "randomized controlled trial", "phase III", "phase 3", and "clinical trial".
 Boolean operators (AND/OR) will be used to combine search terms, and database-specific syntax will be applied as appropriate. Reference lists of included studies and relevant reviews will also be screened to identify additional eligible studies.
 ### Study Selection Process
-Records identified through the database searches will be imported into a reference management software, and duplicate records will be removed. Titles and abstracts will be screened against the predefined eligibility criteria, followed by full-text assessment of potentially eligible studies. Study selection will be conducted by a single reviewer (ZB) due to the scope and resource constraints of this project. This approach differs from the standard practice of independent screening by two reviewers and is acknowledged as a methodological limitation. Reasons for exclusion at full-text review will be documented and summarized in a PRISMA 2020 flow diagram.
+Records identified through the database searches will be imported into Rayyan, and duplicate records will be removed. Titles and abstracts will be screened against the predefined eligibility criteria, followed by full-text assessment of potentially eligible studies. Study selection will be conducted by a single reviewer (ZB) due to the scope and resource constraints of this project. This approach differs from the standard practice of independent screening by two reviewers and is acknowledged as a methodological limitation. Reasons for exclusion at full-text review will be documented and summarized in a PRISMA 2020 flow diagram.
+### Language restrictions:
+No language restrictions will be applied. Studies published in English and French will be assessed directly. Studies published in other languages will be considered where a reliable translation is available.
+### Limitations:
+Due to the lack of institutional access to subscription-based databases, Embase and MEDLINE (via Ovid) will not be searched. Although PubMed provides extensive coverage of the biomedical literature, the omission of these databases may result in some relevant studies not being identified. This limitation will be partially mitigated through manual reference screening and searches of ClinicalTrials.gov.
 
 ## Data Extraction
+### Trial-Specific Primary Sources
+For each included trial, data will be extracted from the most mature follow-up publication available at the time of data extraction. Where multiple publications exist for the same trial, the publication with the longest reported follow-up and most complete outcome data will serve as the primary source, with earlier publications retained for sensitivity analyses only.
 ### Variables to Extract
-Trial identifiers (NCT number, citation, year, journal); design features (randomization ratio, blinding status, sample size per arm, bridging-therapy policy, crossover provisions); population characteristics relevant to transitivity (age, prior lines of therapy, disease stage); and outcome data by arm.
+A standardized data extraction form will be developed and piloted using one included study before formal data extraction is undertaken. Trial identifiers (NCT number, citation, year, journal, data cutoff date); design features (randomization ratio, blinding status, sample size per arm, bridging-therapy policy, crossover provisions); population characteristics relevant to transitivity (age, prior lines of therapy, disease stage, IPI score, geographic region, proportion primary refractory vs early relapse, time from diagnosis to CAR-T infusion); and outcome data by arm.
 ### Outcomes
-For time-to-event outcomes (EFS, OS, and PFS), hazard ratios (HRs) with corresponding 95% confidence intervals will be extracted from the longest available follow-up reported in each study. For dichotomous outcomes (ORR, CRR, TEAEs, SAEs, and Grade ≥3 adverse events), the number of participants randomized and the number experiencing each outcome will be extracted for each treatment arm directly from the primary publication or its supplementary appendices. Where multiple publications are available for the same trial (e.g., TRANSFORM interim and updated analyses), the publication used for the primary analysis will be specified a priori, with the most mature follow-up serving as the base-case analysis. Any values derived by calculation (e.g., back-calculated from reported percentages) rather than extracted directly will be clearly identified in the accompanying data dictionary.
+For time-to-event outcomes (EFS, OS, and PFS), hazard ratios (HRs) with corresponding 95% confidence intervals will be extracted from the longest available follow-up reported in each study. For dichotomous outcomes (CRR, ORR, TEAEs, SAEs, and Grade ≥3 adverse events), the number of participants randomized and the number experiencing each outcome will be extracted for each treatment arm directly from the primary publication or its supplementary appendices.
+
+**Handling of unreported hazard ratios:** If a trial does not report an HR with 95% CI for a time-to-event outcome, the estimate will be reconstructed from published Kaplan–Meier curves and numbers at risk using the methods of Tierney et al. (2007) / Parmar et al. (1998). If reconstruction is not feasible from the available data, that outcome–trial cell will be excluded from the corresponding NMA rather than imputed; the exclusion and its reason will be documented in the data dictionary.
+
+**Crossover-adjusted OS:** Where reported by trial investigators (e.g., rank-preserving structural failure time [RPSFT] adjusted estimates), crossover-adjusted OS hazard ratios will be extracted alongside intention-to-treat estimates for use in a pre-specified sensitivity analysis.
+
+**Patient-reported outcomes:** Where reported, PRO instruments (e.g., FACT-Lym, EQ-5D), assessment timepoints, and available summary statistics (mean change from baseline, standard deviation, or responder analyses) will be extracted for descriptive synthesis.
+
 ## Risk of Bias Assessment
-The risk of bias of the included randomized controlled trials will be assessed using the Cochrane Risk of Bias 2 (RoB 2) tool across its five domains: (1) the randomization process, (2) deviations from intended interventions, (3) missing outcome data, (4) measurement of the outcome, and (5) selection of the reported result. The assessment will be conducted by a single reviewer. Risk-of-bias judgments will be visualized using the robvis R package as traffic-light and weighted summary plots (McGuinness & Higgins, 2021).
+The risk of bias for each outcome will be assessed using the Cochrane Risk of Bias 2 (RoB 2) tool across its five domains: (1) the randomization process, (2) deviations from intended interventions, (3) missing outcome data, (4) measurement of the outcome, and (5) selection of the reported result. The assessment will be conducted by a single reviewer. Risk-of-bias judgments will be visualized using the robvis R package as traffic-light and weighted summary plots (McGuinness & Higgins, 2021).
 
 ## Statistical Analysis
 ### Network Meta-analysis
-Frequentist network meta-analyses will be conducted using the netmeta package in R. Time-to-event outcomes (EFS, OS, and PFS) will be synthesized using hazard ratios (HRs) with corresponding 95% confidence intervals, while dichotomous outcomes (ORR, CRR, TEAEs, SAEs, and Grade ≥3 adverse events) will be synthesized using odds ratios (ORs) with corresponding 95% confidence intervals. A common-effect (fixed-effect) model will be used as the primary analytical approach because each treatment comparison is informed by a single randomized controlled trial, preventing reliable estimation of between-study heterogeneity. Standard of care will serve as the reference treatment. Results will be presented as network plots, league tables of all pairwise treatment comparisons, forest plots comparing each intervention with standard of care, and P-score rankings to summarize the relative performance of the interventions.
+Frequentist network meta-analyses will be conducted using the netmeta package in R. Time-to-event outcomes (EFS, OS, and PFS) will be synthesized using hazard ratios (HRs) with corresponding 95% confidence intervals, while dichotomous outcomes (CRR, ORR, TEAEs, SAEs, and Grade ≥3 adverse events) will be synthesized using odds ratios (ORs) with corresponding 95% confidence intervals. A common-effect (fixed-effect) model will be used as the primary analytical approach because each treatment comparison is informed by a single randomized controlled trial, preventing reliable estimation of between-study heterogeneity. Standard of care will serve as the reference treatment. Results will be presented as network plots, league tables of all pairwise treatment comparisons, forest plots comparing each intervention with standard of care, and P-score rankings to summarize the relative performance of the interventions.
+
+**Zero-event handling:** For dichotomous outcomes where a treatment arm has zero events, a continuity correction of 0.5 will be applied to both arms of that comparison (the `netmeta::pairwise()` default), applied consistently and pre-specified here rather than decided post hoc.
+
 ### Assessment of Heterogeneity
 Not formally estimable in this network. Standard between-study heterogeneity statistics (τ², I²) require multiple trials informing the same comparison, and every edge in this network is informed by exactly one trial. This is reported as a structural limitation of the evidence base, not as a heterogeneity estimate of zero.
 ### Assessment of Transitivity
-Assessed qualitatively, by comparing baseline characteristics (age, prior lines of therapy, disease stage) and trial-design features (bridging-therapy policy, crossover provisions, response-adjudication method) across the three trials' standard-of-care arms, to evaluate whether they plausibly estimate a common underlying comparator.
+Assessed qualitatively, by comparing baseline characteristics and trial-design features across the three trials' standard-of-care arms, to evaluate whether they plausibly estimate a common underlying comparator.
+
+**Characteristics compared across trials (from each trial's Table 1 / supplementary material):**
+- Age, prior lines of therapy, disease stage.
+- **International Prognostic Index (IPI) score distribution** — a named, plausible effect modifier in DLBCL; differences in IPI mix across trials are a direct threat to transitivity.
+- **Geographic region / enrollment distribution** — BELINDA enrolled heavily in Asia and Australia, unlike ZUMA-7 and TRANSFORM; regional differences in salvage regimen practice and supportive care are a recognised effect modifier.
+- **Proportion primary refractory vs early relapse** — these subgroups have materially different prognosis, and an imbalanced mix across trials biases indirect comparisons.
+- **Time from diagnosis to CAR-T infusion** — a measure of how well the trial reflects real-world turnaround; longer intervals disadvantage CAR-T arms.
+- Trial-design features: bridging-therapy policy, crossover provisions, response-adjudication method.
+
+**Outcome-definition transitivity (the most material threat in this specific network):** Transitivity is assessed per outcome, not only per population. The most important outcome-level transitivity threat here concerns **EFS, whose event definition is not harmonized across the three trials.** Specifically: ZUMA-7 defines an EFS event as death, progressive disease, new therapy, or relapse/progression after a best response of stable disease or non-CR/PR; BELINDA additionally counts failure to achieve a PET-negative complete response by week 6 (with subsequent PD/death) as an event — a clause that treats a slow CAR-T response as an event even when the other trials would not. This definitional divergence is widely understood to contribute to BELINDA's null EFS result despite an identical CR rate in its two arms. **EFS transitivity is therefore not assumed**, and EFS results are interpreted under that explicit caveat. This is also the reason CRR, defined consistently by Lugano 2014 criteria across all three trials, is the designated primary outcome.
+
+The three named design differences below will be presented in the transitivity table and discussed in the report:
+- ZUMA-7 did not permit chemotherapy bridging therapy; TRANSFORM did — a documented design difference between the two trials.
+- BELINDA had a materially higher proportion of patients progress before receiving CAR-T (25.9% by week 6, vs 13.8% in its own control arm) — widely cited as a mechanical reason that trial read null rather than a true absence of drug effect.
+- TRANSFORM's 50/92 (54%) SOC-to-liso-cel crossover rate means its SOC arm is a weaker "pure" comparator than ZUMA-7's or BELINDA's.
+
 ### Assessment of Consistency
 Not assessable in this network. Consistency — agreement between direct and indirect evidence — can only be evaluated where a closed loop exists, giving both direct and indirect evidence for the same comparison. This network is star-shaped: all three CAR-T therapies connect only through the shared standard-of-care comparator, with no direct CAR-T-versus-CAR-T trial, so no closed loop exists and node-splitting is not applicable.
 ### Treatment Ranking
-P-scores (netmeta's frequentist analogue to SUCRA), interpreted alongside point estimates and confidence intervals rather than in isolation, given the wide uncertainty expected from a three-trial network.
+P-scores (netmeta's frequentist analogue to SUCRA), interpreted alongside point estimates and confidence intervals rather than in isolation. Given the wide uncertainty expected from a three-trial star network, P-score rankings will be near-uninformative (overlapping confidence intervals across treatments); the report will state this directly and will not present rankings that imply meaningful separation when intervals overlap heavily.
 ### Sensitivity Analyses
-Sensitivity analyses will be conducted, where applicable, to evaluate the robustness of the findings. Where multiple publications of the same trial are available (e.g., interim and updated analyses of TRANSFORM), the analysis based on the most mature follow-up will serve as the primary analysis, with earlier analyses evaluated in sensitivity analyses to assess the impact of follow-up duration on the estimated treatment effects. Any additional sensitivity analyses will be undertaken only if sufficient data are available and will be reported transparently.
+Sensitivity analyses will be conducted, where applicable, to evaluate the robustness of the findings.
+
+1. **Outcome re-analysis (ORR):** The primary NMA (CRR) will be re-run substituting ORR responders for CR responders, to confirm whether ranking and direction of effect hold across the two harmonized Lugano-criteria response outcomes.
+2. **Follow-up duration:** Where multiple publications of the same trial are available (e.g., interim and updated analyses of TRANSFORM), the analysis based on the most mature follow-up will serve as the primary analysis, with earlier analyses evaluated in sensitivity analyses to assess the impact of follow-up duration on the estimated treatment effects.
+3. **Crossover-adjusted overall survival:** A pre-specified sensitivity analysis will be conducted for OS using crossover-adjusted hazard ratios (where reported by trial investigators using methods such as RPSFT) in place of intention-to-treat estimates. This analysis aims to assess the impact of treatment switching from the standard-of-care arm to CAR-T therapy on the comparative effectiveness estimates. Crossover-adjusted estimates will not be incorporated into the primary NMA due to potential heterogeneity in adjustment methods across trials.
+
+Any additional sensitivity analyses will be undertaken only if sufficient data are available and will be reported transparently.
 
 ## Confidence in the Evidence
-Assessed qualitatively using the CINeMA framework (Nikolakopoulou et al., 2020) across five domains — within-study bias, indirectness, imprecision, heterogeneity, and incoherence — each rated High/Moderate/Low/Very low with a brief justification, rather than using the formal CINeMA web application.
+Assessed qualitatively using the CINeMA framework [Nikolakopoulou et al., 2020] across five domains — within-study bias, indirectness, imprecision, heterogeneity, and incoherence — each rated High/Moderate/Low/Very low with a brief justification, rather than using the formal CINeMA web application. Note that the qualitative version forfeits CINeMA's contribution-weighted within-study-bias step (in which RoB judgments are weighted by each trial's contribution to the network); in a star network with equal per-edge contributions this loss is minor, but the limitation is acknowledged rather than implying full equivalence with the formal tool.
+
+## Reporting Standard
+The final report will conform to the PRISMA extension for network meta-analyses (PRISMA-NMA; Hutton et al., Ann Intern Med 2015). The completed PRISMA-NMA checklist will be included as a supplement, and a PRISMA 2020 flow diagram will report study identification and selection.
+
+## Reproducibility
+Analyses will be conducted in R, with package versions locked via `renv::snapshot()` and the resulting lockfile committed to the repository. The R version and `netmeta` version used for the final analysis will be reported in the Methods section of the report. All analysis scripts will be numbered and version-controlled in the project repository.
 
 ## References
 References will be managed using the references.bib bibliography file
