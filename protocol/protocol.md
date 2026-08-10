@@ -100,7 +100,7 @@ A standardized data extraction form will be developed and piloted using one incl
 ### Outcomes
 For time-to-event outcomes (EFS, OS, and PFS), hazard ratios (HRs) with corresponding 95% confidence intervals will be extracted from the longest available follow-up reported in each study. For dichotomous outcomes (CRR, ORR, TEAEs, SAEs, and Grade ≥3 adverse events), the number of participants randomized and the number experiencing each outcome will be extracted for each treatment arm directly from the primary publication or its supplementary appendices.
 
-**Handling of unreported hazard ratios:** If a trial does not report an HR with 95% CI for a time-to-event outcome, the estimate will be reconstructed from published Kaplan–Meier curves and numbers at risk using the methods of Tierney et al. (2007) / Parmar et al. (1998). If reconstruction is not feasible from the available data, that outcome–trial cell will be excluded from the corresponding NMA rather than imputed; the exclusion and its reason will be documented in the data dictionary.
+**Handling of unreported hazard ratios:** If a trial does not report an HR with 95% CI for a time-to-event outcome, the estimate will be reconstructed from published Kaplan-Meier curves and numbers at risk using the methods of Tierney et al. (2007) / Parmar et al. (1998). If reconstruction is not feasible from the available data, that outcome-trial cell will be excluded from the corresponding NMA rather than imputed; the exclusion and its reason will be documented in the data dictionary.
 
 **Crossover-adjusted OS:** Where reported by trial investigators (e.g., rank-preserving structural failure time [RPSFT] adjusted estimates), crossover-adjusted OS hazard ratios will be extracted alongside intention-to-treat estimates for use in a pre-specified sensitivity analysis.
 
@@ -122,13 +122,13 @@ Assessed qualitatively, by comparing baseline characteristics and trial-design f
 
 **Characteristics compared across trials (from each trial's Table 1 / supplementary material):**
 - Age, prior lines of therapy, disease stage.
-- **International Prognostic Index (IPI) score distribution** — a named, plausible effect modifier in DLBCL; differences in IPI mix across trials are a direct threat to transitivity.
-- **Geographic region / enrollment distribution** — BELINDA enrolled heavily in Asia and Australia, unlike ZUMA-7 and TRANSFORM; regional differences in salvage regimen practice and supportive care are a recognised effect modifier.
-- **Proportion primary refractory vs early relapse** — these subgroups have materially different prognosis, and an imbalanced mix across trials biases indirect comparisons.
-- **Time from diagnosis to CAR-T infusion** — a measure of how well the trial reflects real-world turnaround; longer intervals disadvantage CAR-T arms.
+- **International Prognostic Index (IPI) score distribution** : a named, plausible effect modifier in DLBCL; differences in IPI mix across trials are a direct threat to transitivity.
+- **Geographic region / enrollment distribution**: BELINDA enrolled heavily in Asia and Australia, unlike ZUMA-7 and TRANSFORM; regional differences in salvage regimen practice and supportive care are a recognised effect modifier.
+- **Proportion primary refractory vs early relapse**: these subgroups have materially different prognosis, and an imbalanced mix across trials biases indirect comparisons.
+- **Time from diagnosis to CAR-T infusion**: a measure of how well the trial reflects real-world turnaround; longer intervals disadvantage CAR-T arms.
 - Trial-design features: bridging-therapy policy, crossover provisions, response-adjudication method.
 
-**Outcome-definition transitivity (the most material threat in this specific network):** Transitivity is assessed per outcome, not only per population. The most important outcome-level transitivity threat here concerns **EFS, whose event definition is not harmonized across the three trials.** Specifically: ZUMA-7 defines an EFS event as death, progressive disease, new therapy, or relapse/progression after a best response of stable disease or non-CR/PR; BELINDA additionally counts failure to achieve a PET-negative complete response by week 6 (with subsequent PD/death) as an event — a clause that treats a slow CAR-T response as an event even when the other trials would not. This definitional divergence is widely understood to contribute to BELINDA's null EFS result despite an identical CR rate in its two arms. **EFS transitivity is therefore not assumed**, and EFS results are interpreted under that explicit caveat. This is also the reason CRR, defined consistently by Lugano 2014 criteria across all three trials, is the designated primary outcome.
+**Outcome-definition transitivity (the most material threat in this specific network):** Transitivity is assessed per outcome, not only per population. The most important outcome-level transitivity threat here concerns **EFS, whose event definition is not harmonized across the three trials.** Specifically: ZUMA-7 defines an EFS event as death, progressive disease, new therapy, or relapse/progression after a best response of stable disease or non-CR/PR; BELINDA additionally counts failure to achieve a PET-negative complete response by week 6 (with subsequent PD/death) as an event, a clause that treats a slow CAR-T response as an event even when the other trials would not. This definitional divergence is widely understood to contribute to BELINDA's null EFS result despite an identical CR rate in its two arms. **EFS transitivity is therefore not assumed**, and EFS results are interpreted under that explicit caveat. This is also the reason CRR, defined consistently by Lugano 2014 criteria across all three trials, is the designated primary outcome.
 
 The three named design differences below will be presented in the transitivity table and discussed in the report:
 - ZUMA-7 did not permit chemotherapy bridging therapy; TRANSFORM did — a documented design difference between the two trials.
@@ -149,13 +149,13 @@ Sensitivity analyses will be conducted, where applicable, to evaluate the robust
 Any additional sensitivity analyses will be undertaken only if sufficient data are available and will be reported transparently.
 
 ## Confidence in the Evidence
-Assessed qualitatively using the CINeMA framework [Nikolakopoulou et al., 2020] across five domains — within-study bias, indirectness, imprecision, heterogeneity, and incoherence — each rated High/Moderate/Low/Very low with a brief justification, rather than using the formal CINeMA web application. Note that the qualitative version forfeits CINeMA's contribution-weighted within-study-bias step (in which RoB judgments are weighted by each trial's contribution to the network); in a star network with equal per-edge contributions this loss is minor, but the limitation is acknowledged rather than implying full equivalence with the formal tool.
+Assessed qualitatively using the CINeMA framework [Nikolakopoulou et al., 2020] across five domains — within-study bias, indirectness, imprecision, heterogeneity, and incoherence each rated High/Moderate/Low/Very low with a brief justification, rather than using the formal CINeMA web application. Note that the qualitative version forfeits CINeMA's contribution-weighted within-study-bias step (in which RoB judgments are weighted by each trial's contribution to the network); in a star network with equal per-edge contributions this loss is minor, but the limitation is acknowledged rather than implying full equivalence with the formal tool.
 
 ## Reporting Standard
 The final report will conform to the PRISMA extension for network meta-analyses (PRISMA-NMA; Hutton et al., Ann Intern Med 2015). The completed PRISMA-NMA checklist will be included as a supplement, and a PRISMA 2020 flow diagram will report study identification and selection.
 
 ## Reproducibility
-Analyses will be conducted in R, with package versions locked via `renv::snapshot()` and the resulting lockfile committed to the repository. The R version and `netmeta` version used for the final analysis will be reported in the Methods section of the report. All analysis scripts will be numbered and version-controlled in the project repository.
+Analyses will be conducted in R, with package versions locked via `renv::snapshot()` and the resulting lockfile committed to the repository. The R version and `netmeta` version used for the final analysis will be reported in the final report. All analysis scripts will be numbered and version-controlled in the project repository.
 
 ## References
 References will be managed using the references.bib bibliography file
